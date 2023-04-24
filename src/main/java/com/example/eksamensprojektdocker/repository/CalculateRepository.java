@@ -12,13 +12,11 @@ import java.util.List;
 
 @Repository
 public class CalculateRepository {
+
     public List<String> getUsers() {
         List<String> users = new ArrayList<>();
-
         try {
             Connection conn = DB_Connector.getConnection();
-            System.out.println(conn);
-
             String SQL = "SELECT * FROM users;";
             Statement stmt = conn.createStatement();
 
