@@ -3,6 +3,7 @@ package com.example.eksamensprojektdocker.repository;
 import com.example.eksamensprojektdocker.repository.util.DB_Connector;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,12 +14,15 @@ import java.util.List;
 public class CalculateRepository {
     public List<String> getUsers() {
         List<String> users = new ArrayList<>();
-        String SQL = "SELECT * FROM users;";
 
         try {
-            Statement stmt = DB_Connector.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery(SQL);
+            Connection conn = DB_Connector.getConnection();
+            System.out.println(conn);
 
+            String SQL = "SELECT * FROM users;";
+            Statement stmt = conn.createStatement();
+
+            ResultSet rs = stmt.executeQuery(SQL);
             while (rs.next()) {
                 users.add(rs.getString("user_name"));
             }

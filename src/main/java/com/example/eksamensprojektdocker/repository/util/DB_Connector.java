@@ -1,36 +1,38 @@
 package com.example.eksamensprojektdocker.repository.util;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 
+@Component
 public class DB_Connector {
-    private static String url;
-    private static String user;
-    private static String pass;
+    private static String URL;
+    private static String USER;
+    private static String PASS;
+
     private static Connection connection;
 
-    public static Connection getConnection() {
-        if (connection != null) return connection;
+    @Value("${spring.datasource.url}")
+    public void setUrl(String url) {
+        URL = url;
+    }
 
-        //String url = null;
-        //String user = null;
-        //String pass = null;
-        try (InputStream input = new FileInputStream("src/main/resources/application.properties")) {
-            Properties properties = new Properties();
-            properties.load(input);
-            url = properties.getProperty("url");
-            user = properties.getProperty("username");
-            pass = properties.getProperty("password");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+    @Value("${spring.datasource.username}")
+    public void setUser(String user) {
+        USER = user;
+    }
+
+    @Value("${spring.datasource.password}")
+    public void setPass(String pass) {
+        PASS = pass;
+    }
+
+    public static Connection getConnection() {
         try {
-            connection = DriverManager.getConnection(url, user, pass);
+            if (connection == null) connection = DriverManager.getConnection(URL, USER, PASS);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
