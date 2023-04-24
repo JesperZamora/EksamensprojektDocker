@@ -9,14 +9,17 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DB_Connector {
+    private static String url;
+    private static String user;
+    private static String pass;
     private static Connection connection;
 
     public static Connection getConnection() {
         if (connection != null) return connection;
 
-        String url = null;
-        String user = null;
-        String pass = null;
+        //String url = null;
+        //String user = null;
+        //String pass = null;
         try (InputStream input = new FileInputStream("src/main/resources/application.properties")) {
             Properties properties = new Properties();
             properties.load(input);
