@@ -1,19 +1,40 @@
 package com.example.eksamensprojektdocker.service;
 
-import com.example.eksamensprojektdocker.repository.CalculateRepository;
+import com.example.eksamensprojektdocker.model.Project;
+import com.example.eksamensprojektdocker.model.Subproject;
+import com.example.eksamensprojektdocker.model.Task;
+import com.example.eksamensprojektdocker.repository.ICalculate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class CalculateService {
-    private CalculateRepository repository;
+    ICalculate iCalculateRepo;
 
-    public CalculateService(CalculateRepository repository){
-        this.repository = repository;
+    public CalculateService(ICalculate iCalculateRepo){
+        this.iCalculateRepo = iCalculateRepo;
     }
 
-    public List<String> getUsers(){
+    public void createProject(Project project){
+        iCalculateRepo.createProject(project);
+    }
+
+    public void createSubproject(Subproject subproject){
+        iCalculateRepo.createSubproject(subproject);
+    }
+
+    public void createTask(Task task){
+        iCalculateRepo.createTask(task);
+    }
+
+    public List<Project> getProjects(){
+        return iCalculateRepo.getProjects();
+    }
+
+
+
+    /*    public List<String> getUsers(){
         return repository.getUsers();
-    }
+    }*/
 }
